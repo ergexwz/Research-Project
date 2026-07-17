@@ -1,0 +1,14 @@
+# 核心依赖
+torch>=1.12.0
+numpy>=1.21.0
+pandas>=1.4.0
+scikit-learn>=1.0.0
+pyyaml>=6.0
+tqdm>=4.62.0
+tensorboard>=2.9.0
+
+# 可选：文档生成（仅在运行 docs/ 脚本时需要）
+# pip install python-docx matplotlib requests
+# python-docx>=0.8.11
+# matplotlib>=3.5.0
+# requests>=2.27.0

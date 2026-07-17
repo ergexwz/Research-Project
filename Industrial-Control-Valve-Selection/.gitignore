@@ -1,0 +1,51 @@
+# 模型检查点 & 预处理器
+checkpoints/
+*.pt
+*.pth
+*.pkl
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code 个人配置
+.claude/
+
+# 训练产物
+runs/
+logs/
+*.log
+
+# TensorBoard
+events.out.*
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 原始数据（保密）
+initdata/*.csv
+
+# Word 临时文件
+~$*.docx
+~$*.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 环境变量
+.env
+*.env
+venv/
+.venv/

@@ -1,0 +1,73 @@
+# HECTO-E 模型配置文件
+
+# 数据
+data:
+  raw_path: "data/选型系统数据.csv"  # 请将保密数据文件放置于此路径
+  preprocessor_path: "checkpoints/preprocessor.pkl"
+  train_ratio: 0.80
+  val_ratio: 0.10
+  test_ratio: 0.10
+  random_seed: 42
+
+# 模型架构
+model:
+  d_model: 256
+  d_emb: 64
+  n_heads: 8
+  n_transformer_layers: 2
+  dropout: 0.1
+  n_triplets: 6
+  n_series: 14
+  n_model_global: 64
+  n_specs_reg: 3
+  use_prototype: true
+  d_proj: 128
+  temperature_inst: 0.07
+  temperature_proto: 0.1
+  proto_momentum: 0.99
+  tail_threshold: 10
+
+# 训练
+training:
+  batch_size: 128
+  num_workers: 4
+
+  # 阶段一: MFM 预训练
+  pretrain:
+    epochs: 100
+    lr: 1.0e-3
+    weight_decay: 0.01
+    mfm_mask_ratio: 0.15
+
+  # 阶段二: 联合训练
+  joint:
+    epochs: 300
+    lr: 1.0e-3
+    weight_decay: 0.01
+    warmup_epochs: 10
+    lr_scheduler: "cosine"
+    contrastive_weight: 0.1
+    proto_weight: 0.05
+    physics_weight: 0.05
+    teacher_forcing_start: 1.0
+    teacher_forcing_end: 0.7
+    label_smoothing: 0.1
+
+  # 阶段三: 原型微调
+  finetune:
+    epochs: 50
+    lr: 1.0e-4
+    weight_decay: 0.001
+    use_class_balanced_sampling: true
+
+  # 优化器
+  optimizer: "adamw"
+  grad_clip: 1.0
+  mixed_precision: false
+
+# 日志 & 保存
+logging:
+  log_interval: 50
+  eval_interval: 5
+  checkpoint_dir: "checkpoints"
+  tensorboard_dir: "runs"
